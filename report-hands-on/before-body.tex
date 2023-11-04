@@ -1,0 +1,42 @@
+\thispagestyle{empty} 
+\vskip2cm 
+{\centerline{\textbf{ACoP14 Report}}} 
+\vskip2cm 
+\begin{table}[!h]
+      \setlength{\tabcolsep}{5pt}  
+      \renewcommand{\arraystretch}{1.5}
+      \begin{tabularx}{\textwidth}{lX}
+            \midrule
+            \textbf{Report Number:} & 12345 \\ 
+            \midrule
+            \textbf{Report Title:} & $title$ \\ 
+            \midrule 
+            \textbf{Study Drug:} &  Drug Name\\ 
+            \midrule
+            \textbf{Indication:} & Disease\\ 
+            \midrule 
+            \textbf{Study Numbers:} & 12344\\ 
+            \midrule 
+            \textbf{Sponser:} & Company name \newline 
+                        Street Address \newline
+                       City, Zip code\newline 
+                       \\ 
+            \midrule 
+            \textbf{Prepared By:} & $for(author)$$author$$sep$ \newline $endfor$\\ 
+            \midrule 
+            \textbf{Report Date:} & $date$\\ 
+            \midrule 
+            \textbf{Report Status:}  & 111111 \\
+            \midrule 
+      \end{tabularx}
+\end{table}
+
+\vskip0.5cm 
+$if(copyright)$
+\begin{center}
+{\textbf{CONFIDENTIAL}} 
+\begin{mdframed} 
+    {\normalsize $copyright$}
+\end{mdframed}
+\end{center}
+$endif$ 

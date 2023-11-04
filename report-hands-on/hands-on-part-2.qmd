@@ -1,0 +1,91 @@
+---
+title: Hands-on exercise 2
+--- 
+
+
+1. Continue from the previous report you created in `Part 1`. Add header and footer using `include-in-header`. Fill out the blanks: 
+   
+
+```{yaml}
+include-in-header: 
+    - text: |
+         \usepackage[headsepline,footsepline]{scrlayer-scrpage}
+         \pagestyle{scrheadings}
+         \lohead{____}
+         \rohead{____}
+         \lofoot{____}
+         \ifoot{\thepage}
+         \cofoot{} % empty 
+         \renewcommand*\chapterpagestyle{scrheadings}
+         \usepackage{tabularx}
+         \usepackage{mdframed}
+
+```
+
+2. Create a template partial using (source code)[https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/pdf/pandoc/] and name it `before-body.tex`
+
+Add the following in YAML header
+
+```{yaml}
+template-partials:
+    - before-body.tex
+```
+
+Modify the file `before-body.tex` and change it to 
+
+```{latex}
+\thispagestyle{empty} 
+\vskip2cm 
+{\centerline{\textbf{PHARMACOMETRICS REPORT}}} 
+\vskip2cm 
+\begin{table}[!h]
+      \setlength{\tabcolsep}{5pt}  
+      \renewcommand{\arraystretch}{1.5}
+      \begin{tabularx}{\textwidth}{lX}
+            \midrule
+            \textbf{Report Number:} & 12345 \\ 
+            \midrule
+            \textbf{Report Title:} & $title$ \\ 
+            \midrule 
+            \textbf{Study Drug:} &  Drug Name\\ 
+            \midrule
+            \textbf{Indication:} & Disease\\ 
+            \midrule 
+            \textbf{Study Numbers:} & 12344\\ 
+            \midrule 
+            \textbf{Sponser:} & Company Name \newline 
+                        Street address \newline
+                       City, Zip code\newline 
+                       \\ 
+            \midrule 
+            \textbf{Prepared By:} & $for(author)$$author$$sep$ \newline $endfor$\\ 
+            \midrule 
+            \textbf{Report Date:} & $date$\\ 
+            \midrule 
+            \textbf{Report Status:}  & 111111 \\
+            \midrule 
+      \end{tabularx}
+\end{table}
+
+
+```
+
+3. Add yaml elements to be read by `before-body.tex` partials 
+
+```{yaml}
+report_number: 12345
+study_drug: drug A
+report_status: draft
+```
+
+
+4. Bouns: Clean your `*.qmd` file by adding all LaTeX code presented in `include-in-header` to a file and recall it from `include-in-header`
+
+
+5. Bouns: Add logo to your report by inserting the following code at the begnning of your `before-body.tex` file. 
+
+```{latex}
+\begin{center}
+\includefigure[width=5cm]{quarto.png}
+\end{center}
+```

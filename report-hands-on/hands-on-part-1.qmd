@@ -1,0 +1,82 @@
+---
+title: Hands-on exercise 1
+--- 
+
+
+1. Create a new `Quarto` doc and specifiy in yaml header the following:
+
+```{yaml}
+format:
+    pdf: 
+        documentclass: ___
+        number-sections: true 
+```
+
+Where you can explore different options. Create a KOMA report `scr..` 
+
+2. Add the following sections and cross-reference each one with `{#sec-___}`
+
+```{markdown}
+# Overview 
+
+# Introduction 
+
+## background 
+
+## Objectives 
+
+# Methods 
+```
+
+3. Add to yaml header table of contents `toc`, list of figures `lof` and list of tables, `lot` 
+
+4. Change the name for (3) to **Index**, **Figures in-text**, and **Tables in-text**. hint: `crossref` options in yaml header. 
+   
+5. Add the following chuncks within your report body and reference them
+Global: 
+
+```{r}
+#| echo: fenced 
+#| warning: false 
+library(tidyverse)
+library(gt)
+```
+
+Figure: 
+
+```{r}
+#| echo: fenced
+#| output: false
+#| fig-cap: __________
+#| label: fig-____
+
+ggplot(Theoph, aes(Time, conc)) + 
+geom_point() + 
+theme_bw(base_size = 13)
+```
+
+Table: 
+
+
+```{r}
+#| echo: fenced 
+#| output: false 
+#| label: tbl-___
+#| tbl-cap: ______
+
+Theoph |>
+filter(Subject == 1, row_number() <= 5) |>
+gt() 
+```
+
+
+6. Bibliography: using RStudio Visual Editor, cite a paper or R package using the synatx for citations and print references prior to `Methods` section 
+
+
+7. Bonus: Change font using the following code
+
+```{yaml}
+mainfont: LiberationSerif
+sansfont: LiberationSans
+monofont: LiberationMono
+```
