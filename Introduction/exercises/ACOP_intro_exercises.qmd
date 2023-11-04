@@ -1,0 +1,91 @@
+---
+title: "Intro Exercises"
+format: html
+editor: visual
+---
+
+\cleardoublepage
+
+For this document we will be working with the Theoph dataset in r.
+
+-   Task 1: Update the YAML Header
+    -   Update the title of the document
+    -   Add an author and date option with your name and today's date
+    -   Choose what type of output you would like to create (pdf or html recommend but not required)
+    -   Add a table of contents
+    -   Note: TOC in html will not appear in the Viewer window. You will need to open the .html file to see the TOC
+
+See the Quarto site for help and information on available options
+
+-   pdf help <https://quarto.org/docs/output-formats/pdf-basics.html>
+
+-   html help <https://quarto.org/docs/output-formats/html-basics.html>
+
+-   Bonus:
+
+    -   Add more than one author
+    -   Look into some of the formatting features you can add such as cap-location or number-sections and add these to your header
+    -   For html documents see if you can change the location of the TOC
+    -   For pdf document see if you can add a list of tables and/or figures
+
+-   Task 2: Add Section Headers
+
+    -   Go through and add at least 2 section headers (for example for a report or analysis plan you might include an Introduction, Methods, etc.)
+    -   Choose one section and add at least one sub-header (for example in methods you may have a header for the data, modeling, simulations, etc)
+
+For header help take a look at: <https://quarto.org/docs/output-formats/html-basics>
+
+-   Bonus:
+
+    -   Play around with the heading format. For example, ask for the headers to be numbered by adding "number-sections: true" to the YAML header.
+    -   You can specify that certain sections not be included in the TOC by adding {.unnumbered} after the header. You can also remove a section from the TOC by adding {.unnumbered .unlisted}. Try adding these features to your document.
+    -   A helpful piece of latex code is : `\cleardoublepage` which creates a page break for pdf documents. Add this after each section header so each section starts on a new page
+
+-   Task 3: Figures
+
+    -   Create a new r code chunk (keyboard shortcut is: option+commard+I)
+    -   Explore the Theoph data by plotting conc vs. time or another variable in the dataset.
+    -   Add a caption and label for your plot
+    -   Cross reference your plot in text
+    -   There is a picture of theophylline in your directory "theoph_structure.png" Insert this figure into your document
+
+For help with adding figures take a look at: <https://quarto.org/docs/authoring/figures.html>
+
+-   Bonus:
+
+    -   Play around with the different echo options by hiding or showing the plot code
+    -   Duplicate your plot or create a second one and output the two figures side-by-side
+
+-   Task 4: Extras
+
+    -   Add some text to your document describing the plots you have made or google some background information on theophylline and add this
+    -   Add a url to your document by placing the link between \<\>
+    -   Next, add the urlcolor: option to your YAML header and choose what color you want the url to display as
+    -   You can add content to the margin of a document. Leave yourself a note in the margin about this document. The structure for this is [add text]{.aside} for text and for figures or tables made in a code chunk and add the yaml option #\| column: margin
+
+For help with adding items to the margin take a look at: <https://quarto.org/docs/blog/posts/2022-02-17-advanced-layout/>
+
+\*Extra Tasks:
+
+-   Tables:
+    -   Create a new r code chunk
+    -   Create a table summarizing the Theoph PK using gt or another package you are familiar with
+    -   Add a caption and label for your Table
+    -   Cross reference your Table in text.
+
+For help with adding items to the margin take a look at: <https://quarto.org/docs/authoring/tables.html>
+
+-   Flow Charts
+    -   You can re-purpose flow charts to make model diagrams
+    -   You will need to a code chunk specifying mermaid instead of r as the type
+    -   For mermaid code chunks the same yaml options can be used but a different pipe is needed. Instead of #\| you use %%\|
+    -   Make a diagram for a one and two compartment model in your document
+
+For help with adding items to the margin take a look at: <https://quarto.org/docs/authoring/diagrams.html>
+
+-   Callout Blocks
+    -   You can add attention grabbing notes to your document with callout blocks
+    -   There are five different types of blocks: note, warning, important, tip and caution.
+    -   You can add one of these blocks by: ::: {.callout-tip} some text :::
+
+For help with adding items to the margin take a look at: <https://quarto.org/docs/authoring/callouts.html>

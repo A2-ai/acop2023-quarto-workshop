@@ -1,0 +1,565 @@
+---
+title: Introduction to Quarto
+subtitle: ACoP14 Workshop Session 
+author: Emma Huges and Ana Ruiz
+format: 
+  revealjs:
+    theme: [default, gilead.scss]
+    logo: logos.png
+    css: logo.css
+    html-math-method: katex 
+crossref:
+  fig-prefix: figure   # (default is "Figure")
+  tbl-prefix: table    # (default is "Table")
+  eq-prefix: eq.    # (default is "Equation")
+  ref-hyperlink: true # (default is true)
+editor: visual    
+code-fold: false
+date: 11-04-2023 
+bibliography: references.bib
+---
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+
+```
+
+## Introduction Goals
+
+-   Introduce the three main components (yaml header, text and code chunks) of a Quarto document
+
+-   Introduce some of Quarto's helpful and unique features
+
+-   Generate your own Quarto document
+
+## Outline
+
+1.  Why Quarto
+2.  YAML Options
+3.  Section headers
+4.  Code chunks
+5.  Inserting Figures
+6.  Inserting Tables
+7.  Cross-referencing
+8.  Helpful formating and style options
+
+## Why Quarto?
+
+### The Document Processing Workflow for R Markdown
+
+-   The typical workflow for an r markdown document is in Rstudio to use the knitr engine to render a .md file which is then processed by pandoc + LaTeX for PDF or pandoc+ Boostrap CSS for HTML to generate the final output.
+
+```{mermaid}
+%%| fig-width: 9
+%%| fig-height: 3
+
+flowchart LR
+
+A[rmd] ==> D[knitr] 
+
+D[knitr] ==> F[md]
+ 
+F[md] ==> G[pandoc]
+
+G[pandoc] ==> H[pdf]
+
+G[pandoc] ==> I[HTML]
+
+```
+
+## Why Quarto?
+
+### Quarto Provides Added Features and Flexibility to the Workflow
+
+1.  Quarto is not tied to RStudio and different workspaces (VS Code, JupyterLab) can be used
+
+```         
+-   Quarto documents can even be rendered using the command line 
+```
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+quarto render intro.qmd
+
+```
+
+```{mermaid}
+%%| fig-width: 9
+%%| fig-height: 3
+
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '30px', 'fontFamily': 'Inter'}}}%%
+
+flowchart LR
+
+subgraph LL[qmd]
+
+A[r]
+B[Python]
+C[Julia]
+
+end
+
+
+
+B[Python] ==> D[knitr] 
+B[Python] ==> E[Jupyter] 
+B[Python] ==> K[VS Code]
+
+
+D[knitr] ==> F[md]
+E[Jupyter] ==> F[md]
+K[VS Code] ==> F[md]
+
+
+F[md] ==> G[pandoc & Lua filters]
+
+G[pandoc & Lua filters] ==> H[pdf/ .docx/ books]
+
+G[pandoc & Lua filters] ==> I[HTML]
+
+G[pandoc & Lua filters] ==> J[.pptx]
+
+
+
+style B fill:#ffc9e6
+style C fill:#ffc9e6
+style E fill:#ffc9e6
+style F fill:#ffc9e6
+style G fill:#ffc9e6
+style K fill:#ffc9e6
+style LL fill:#FFF0F5
+
+```
+
+\
+2. Nice features which Quarto includes are:
+
+```         
+-   Code Freezing: Allows you to render a document without re-executing all the code each time
+
+-   Added flexibility for document layout Example: {.colunm width="50%" heigh="50%"}
+```
+
+## Why Quarto?
+
+### Quarto Provides Added Features and Flexibility to the Workflow
+
+2.  Nice features which Quarto includes are:
+
+```         
+    -   You can use code highlighting
+```
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+#| code-line-numbers: "3|4-6|7"
+library(palmerpenguins)
+library(ggplot2)
+data(penguins)
+ggplot(penguins) + aes(x=bill_depth_mm, 
+                       y=bill_length_mm, 
+                       color = species) + 
+  geom_point()
+```
+
+\
+
+```         
+    -   You can update pre-existing rmd files to qmd!
+```
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+#| code-line-numbers: "3|4-6|7"
+knitr::convert_chunk_header("filename.Rmd", output = "filename.qmd")
+```
+
+## YAML Header:
+
+### An overview
+
+-   The YAML Header is marked by the three dashes "- - -"
+-   The general principle is to have: the name of a data item (a key), followed by a colon, a space, and then the data item's value. A key-value pair in the format [key: value]{style="color: blue;"}.
+-   Each line in YAML is a new item.
+-   Dashes (-) represent individual items in a list.
+-   Note that indentations matter in YAML!!
+-   YAML can be used to specify the global settings for your document (i.e. figure caption location, citation method, code folding, etc.).
+-   You can use the tab key to see what options are available
+
+```{yaml}
+#| echo: true
+#| code-fold: false
+#| code-summary: "expand for full code"
+
+title: "Your HTML"
+author: Add Your Name Here
+date: "November 4, 2023"
+format: html
+cap-location: top
+fig-format: png
+```
+
+For more infomation see: <https://quarto.org/docs/reference/formats/pdf.html>
+
+## YAML Header:
+
+### Code folding
+
+-   You can specify in the YAML header whether you would like to display the code from chunks
+
+-   Code folding and other options are only functional for certain types of outputs. For example, code foldering will not work with pdf.
+
+```{yaml}
+#| echo: true
+#| code-fold: false
+#| code-summary: "expand for full code"
+
+title: "Your HTML"
+author: Add Your Name Here
+date: "November 4, 2023"
+format:
+  html:
+    code-fold: true
+cap-location: top
+fig-format: png
+```
+
+-   This will set the document's global options which you can override for individual chunks
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| code-fold: false
+
+ggplot(data=data, aes(x=Time, y=Conc))+
+  geom_point()
+```
+
+For more information see: <https://quarto.org/docs/output-formats/html-code.html>
+
+## YAML Header:
+
+### Table of Content (TOC)
+
+-   Ask for a TOC in the YAML Header
+
+-   Default features are:
+
+    -   TOC appears at the beginning of the document
+    -   Depth of TOC is 3
+    -   Title is "Table of contents"
+
+-   TOC options vary by the type of document you are creating (not avilable for html documents)
+
+-   "toc-expand" specifies the depth of items in the table of contents that should be displayed as expanded in HTML output. Use true to expand all or false to collapse all.
+
+More info can be found at [@rmarkdown] and <https://quarto.org/docs/reference/formats/pdf.html>
+
+```{yaml}
+#| echo: true
+#| code-fold: false
+#| code-summary: "expand for full code"
+title: Population Pharmacokinetic Analysis of Theophylline In Healthy Volunteers
+author: PMx Team
+date: today
+bibliography: ref.bib 
+format: 
+  pdf:
+    toc: true
+    toc-title: Table of Contents
+    toc_depth: 2
+    toc_location: right
+    lof: true
+    lot: true 
+editor: visual
+
+```
+
+## Headers
+
+-   You can use headers to organize your document.
+-   If making a pdf document, headers will appear in the TOC
+
+```{css}
+code {
+  font-size: 1.7em;
+  /* or try font-size: xx-large; */
+}
+```
+
+```{r}
+#| code-fold: false
+#| echo: fenced
+#| eval: true
+
+# Heading 1  
+## Heading 2  
+### Heading 3 
+#### Heading 4  
+##### Heading 5  
+###### Heading 6 
+```
+
+More info can be found <https://quarto.org/docs/authoring/markdown-basics.html>
+
+## Code Chunks
+
+-   The keyboard shortcut to add a new code chunk is option+command+I
+
+-   Quarto documents can have r, python, Julia, Stan, mermaid and more
+
+-   Quarto code chunks use YAML syntax for chunk options. This means that the options are no longer placed in the brackets but below and you use a "#\|" to list the options
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| warning: false
+#| error: false
+#| label: fig-1
+#| fig-cap: A ggplot 
+
+
+ggplot(penguins) + aes(x=bill_depth_mm, y=bill_length_mm, color = species) + geom_point()
+
+```
+
+More info can be found <https://quarto.org/docs/reference/cells/cells-knitr.html>
+
+## Figures: Inline
+
+### Inline
+
+-   The "label" option is how the figure is identified when you cross reference it. To cross reference the figure in text type "\@ label"
+
+-   @fig-pk is my first Figure
+
+-   The "fig-cap" is the figure's title
+
+-   To display the figure code and output figure side-by-side use the option: "output-location: column-fragment"
+
+```{r}
+#| echo: fenced
+#| eval: true
+#| label: fig-pk
+#| fig-width: 5
+#| fig-cap: this is the caption
+#| output-location: column-fragment
+
+library(ggplot2)
+
+PK_profile<-ggplot(Theoph, aes(x=Time, y=conc)) + 
+    geom_point(color="blue", 
+               alpha=0.6)
+
+PK_profile
+```
+
+More info can be found <https://quarto.org/docs/authoring/figures.html>
+
+## Figures: Inline
+
+### Multiple Figures
+
+@fig-PK-Profiles-1 and @fig-PK-Profiles-2 below.
+
+```{r}
+#| echo: false
+#| error: false
+#| warning: false
+#| label: fig-PK-Profiles
+#| layout-ncol: 2
+#| fig-cap: "Theophylline Concentration versus Time Colored by Subject and Dose"
+#| fig-subcap: 
+#| - "Theophylline Concentration versus Time by Subject"
+#| - "Theophylline Concentration versus Time by Dose"
+
+Theoph$Subject <- factor(Theoph$Subject, 
+                            level = c("1", "2", "3", "4", "5", "6", 
+                                      "7", "8", "9", "10", "11","12"))
+
+PK_Profile_Dose<-ggplot(data=Theoph, aes(x=Time,y=conc,color = Dose))+
+  geom_point(alpha = 0.7, size = 2)+
+  theme_bw()+
+  scale_y_continuous(name ="Concentration (ug/mL)")+
+  scale_x_continuous(name= "Time (hrs)")
+
+PK_profile
+PK_Profile_Dose
+
+```
+
+More info can be found <https://quarto.org/docs/authoring/figures.html>
+
+## Figures: Imported
+
+### PNG
+
+-   To insert an image: ! \[Add a figure caption\] (figurename.png) {add extra formatting settings here}
+
+-   In the {} is where you include a label for cross referencing the figure. The label should be written as #figname
+
+-   You can include more than one argument in the {} section but separate each argument inpute by a space
+
+@fig-pk-png describes the PK of Theophylline by Subject
+
+![This is a PK Profile from a .png](PKPROFILE.png){#fig-pk-png width="50%" height="50%"}
+
+More info can be found <https://quarto.org/docs/authoring/figures.html>
+
+## Figures: Imported
+
+### 2 Figures (Columns)
+
+-   You can customize how imported figures are displayed by using divs
+
+-   divs are marked by at least three consecutive colons :::
+
+-   The structure of a div is :::{some attribute} input :::
+
+-   You must have the same number of colons at the beginning and end of the div
+
+::: {#fig-pkmult layout-ncol="2"}
+![This is a PK Profile from a .png 1](PKPROFILE.png){#fig-M1}
+
+![This is a PK Profile from a .png 2](PKPROFILE.png){#fig-M2}
+
+Multiple Figures
+:::
+
+@fig-M1 and @fig-M2 below.
+
+More info can be found <https://quarto.org/docs/authoring/figures.html>
+
+## Tables: Inline
+
+### Inline Table
+
+```{r}
+#| echo: fenced
+#| label: tbl-PK
+#| tbl-cap: "Summary of Theophylline PK"
+#| tbl-colwidths: [60,40]
+
+knitr::kable(head(Theoph))
+```
+
+More info can be found <https://quarto.org/docs/authoring/tables.html>
+
+## Tables: External Tables
+
+### External Tables
+
+#### tex Tables
+
+-   Can't be used in html revealjs
+
+`\begin{table}[!h]` <br> `\begin{center}` <br> `\caption{Caption of my table}` <br> `\footnotesize` <br> `\label{param-table}` <br> `\input{tables/pk-param-fixed.tex}` <br> `\end{center}` <br> `\end{table}`
+
+Alternatively: `\input{tables/pk-param-fixed.tex}`
+
+More info can be found <https://quarto.org/docs/authoring/tables.html>
+
+## Tables: External Tables
+
+### External Tables
+
+-   You can include an image of a table. But it will be treated as a figure for captions and cross referencing
+
+![Caption of my table](practice-tables.jpg){#fig-table width="30%" height="30%"}
+
+More info can be found <https://quarto.org/docs/authoring/tables.html>
+
+## Format: General features
+
+#### Inline code
+
+use a pair of \`\` around the text or code
+
+#### Text color
+
+`\textcolor{red}{text color is red}` : \textcolor{red}{text color is red} (not html documents)
+
+`<span style="color:red;">this color is red</span>` : [this color is red]{style="color:red;"} (html documents)
+
+#### Subscript/Superscript
+
+`superscript^2^ / subscript~2~` : superscript^2^ / subscript~2~
+
+#### Strikethrough
+
+`~~strikethrough~~` : ~~strikethrough~~
+
+#### Italic/ bold
+
+`*italic*` : *italic*\
+`**bold**` : **bold**\
+`***bold italics***` : ***bold italics***
+
+## Format: General features
+
+### Format: Continued
+
+#### Bulleted list
+
+```{md}
+#| echo: true
+#| code-fold: false
+#| code-summary: "expand for full code"
+* A bullet point  
+- Also a bullet point  
++ Still a bullet point   
+```
+
+#### Sub-levels
+
+```{md}
+#| echo: true
+#| code-fold: false
+#| code-summary: "expand for full code"
+* A bullet point  
+  * Sub-level one  
+    * Sub-level two   
+```
+
+<br>
+
+#### Line breaks
+
+-   two spaces at the end of the line
+-   an html break `<br>`
+-   2 enters/returns (leaving a blank line)
+-   a text break `\vskip0.5cm`
+
+#### Horizontal line
+
+---<br>
+
+## Code highlighting
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| code-summary: "expand for full code"
+#| code-line-numbers: "1"
+x <- 1:10
+x
+LETTERS[x]
+```
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-fold: false
+#| code-summary: "expand for full code"
+#| code-line-numbers: "1"
+x <- 1:10
+x
+LETTERS[x]
+```

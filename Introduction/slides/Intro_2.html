@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="Intro_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Intro_2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="Intro_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="Intro_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="Intro_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Intro_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="Intro_2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="Intro_2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.450">
+
+  <meta name="author" content="Emma Huges and Ana Ruiz">
+  <meta name="dcterms.date" content="2023-11-04">
+  <title>Introduction to Quarto</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="Intro_2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Intro_2_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="Intro_2_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="logo.css">
+  <link href="Intro_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Intro_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Intro_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Intro_2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="Intro_2_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="Intro_2_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="Intro_2_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Introduction to Quarto</h1>
+  <p class="subtitle">ACoP14 Workshop Session</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Emma Huges and Ana Ruiz 
+</div>
+</div>
+</div>
+
+  <p class="date">2023-11-04</p>
+</section>
+<section id="introduction-goals" class="slide level2">
+<h2>Introduction Goals</h2>
+<ul>
+<li><p>Introduce the three main components (yaml header, text and code chunks) of a Quarto document</p></li>
+<li><p>Introduce some of Quarto’s unique and helpful features</p></li>
+<li><p>Generate your own Quarto document</p></li>
+</ul>
+</section>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
+<ol type="1">
+<li>Why Quarto</li>
+<li>YAML Options</li>
+<li>Section headers</li>
+<li>Code chunks</li>
+<li>Inserting Figures</li>
+<li>Inserting Tables</li>
+<li>Cross-referencing</li>
+<li>Helpful formating and style options</li>
+</ol>
+</section>
+<section id="why-quarto" class="slide level2">
+<h2>Why Quarto?</h2>
+<h3 id="the-document-processing-workflow-for-r-markdown">The Document Processing Workflow for R Markdown</h3>
+<ul>
+<li>The typical workflow for an r markdown document is in Rstudio to use the knitr engine to render a .md file which is then processed by pandoc + LaTeX for PDF or pandoc+ Boostrap CSS for HTML to generate the final output.</li>
+</ul>
+<div class="cell" data-reveal="true" data-fig-width="9" data-fig-height="3">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+
+A[rmd] ==&gt; D[knitr] 
+
+D[knitr] ==&gt; F[md]
+ 
+F[md] ==&gt; G[pandoc]
+
+G[pandoc] ==&gt; H[pdf]
+
+G[pandoc] ==&gt; I[HTML]
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="why-quarto-1" class="slide level2">
+<h2>Why Quarto?</h2>
+<h3 id="quarto-provides-added-features-and-flexibility-to-the-workflow">Quarto Provides Added Features and Flexibility to the Workflow</h3>
+<ol type="1">
+<li>Quarto is not tied to RStudio and different workspaces (VS Code, JupyterLab) can be used</li>
+</ol>
+<pre><code>-   Quarto documents can even be rendered using the command line </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>quarto render intro.qmd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-reveal="true" data-fig-width="9" data-fig-height="3">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '30px', 'fontFamily': 'Inter'}}}%%
+
+flowchart LR
+
+subgraph LL[qmd]
+
+A[r]
+B[Python]
+C[Julia]
+
+end
+
+
+
+B[Python] ==&gt; D[knitr] 
+B[Python] ==&gt; E[Jupyter] 
+B[Python] ==&gt; K[VS Code]
+
+
+D[knitr] ==&gt; F[md]
+E[Jupyter] ==&gt; F[md]
+K[VS Code] ==&gt; F[md]
+
+
+F[md] ==&gt; G[pandoc &amp; Lua filters]
+
+G[pandoc &amp; Lua filters] ==&gt; H[pdf/ .docx/ books]
+
+G[pandoc &amp; Lua filters] ==&gt; I[HTML]
+
+G[pandoc &amp; Lua filters] ==&gt; J[.pptx]
+
+
+
+style B fill:#ffc9e6
+style C fill:#ffc9e6
+style E fill:#ffc9e6
+style F fill:#ffc9e6
+style G fill:#ffc9e6
+style K fill:#ffc9e6
+style LL fill:#FFF0F5
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<p><br>
+2. Nice features which Quarto includes are:</p>
+<pre><code>-   Code Freezing: Allows you to render a document without re-executing all the code each time
+
+-   Added flexibility for document layout Example: {.colunm width="50%" heigh="50%"}</code></pre>
+</section>
+<section id="why-quarto-2" class="slide level2">
+<h2>Why Quarto?</h2>
+<h3 id="quarto-provides-added-features-and-flexibility-to-the-workflow-1">Quarto Provides Added Features and Flexibility to the Workflow</h3>
+<ol start="2" type="1">
+<li>Nice features which Quarto includes are:</li>
+</ol>
+<pre><code>    -   You can use code highlighting</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="3|4-6|7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">data</span>(penguins)</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x=</span>bill_depth_mm, </span>
+<span id="cb5-5"><a href="#cb5-5"></a>                       <span class="at">y=</span>bill_length_mm, </span>
+<span id="cb5-6"><a href="#cb5-6"></a>                       <span class="at">color =</span> species) <span class="sc">+</span> </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br>
+</p>
+<pre><code>    -   You can update pre-existing rmd files to qmd!</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="3|4-6|7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>knitr<span class="sc">::</span><span class="fu">convert_chunk_header</span>(<span class="st">"filename.Rmd"</span>, <span class="at">output =</span> <span class="st">"filename.qmd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="yaml-header" class="slide level2">
+<h2>YAML Header:</h2>
+<h3 id="an-overview">An overview</h3>
+<ul>
+<li>The YAML Header is marked by the three dashes “- - -”</li>
+<li>The general principle is to have: the name of a data item (a key), followed by a colon, a space, and then the data item’s value. A key-value pair in the format <span style="color: blue;">key: value</span>.</li>
+<li>Each line in YAML is a new item.</li>
+<li>Dashes (-) represent individual items in a list.</li>
+<li>Note that indentations matter in YAML!!</li>
+<li>YAML can be used to specify the global settings for your document (i.e.&nbsp;figure caption location, citation method, code folding, etc.).</li>
+<li>You can use the tab key to see what options are available</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your HTML"</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> Add Your Name Here</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"November 4, 2023"</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">cap-location</span><span class="kw">:</span><span class="at"> top</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">fig-format</span><span class="kw">:</span><span class="at"> png</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For more infomation see: <a href="https://quarto.org/docs/reference/formats/pdf.html" class="uri">https://quarto.org/docs/reference/formats/pdf.html</a></p>
+</section>
+<section id="yaml-header-1" class="slide level2">
+<h2>YAML Header:</h2>
+<h3 id="code-folding">Code folding</h3>
+<ul>
+<li><p>You can specify in the YAML header whether you would like to display the code from chunks</p></li>
+<li><p>Code folding and other options are only functional for certain types of outputs. For example, code foldering will not work with pdf.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your HTML"</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> Add Your Name Here</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"November 4, 2023"</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="at">    </span><span class="fu">code-fold</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="fu">cap-location</span><span class="kw">:</span><span class="at"> top</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">fig-format</span><span class="kw">:</span><span class="at"> png</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>This will set the document’s global options which you can override for individual chunks</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="fu">ggplot</span>(<span class="at">data=</span>data, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>Conc))<span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For more information see: <a href="https://quarto.org/docs/output-formats/html-code.html" class="uri">https://quarto.org/docs/output-formats/html-code.html</a></p>
+</section>
+<section id="yaml-header-2" class="slide level2">
+<h2>YAML Header:</h2>
+<h3 id="table-of-content-toc">Table of Content (TOC)</h3>
+<ul>
+<li><p>Ask for a TOC in the YAML Header</p></li>
+<li><p>Default features are:</p>
+<ul>
+<li>TOC appears at the beginning of the document</li>
+<li>Depth of TOC is 3</li>
+<li>Title is “Table of contents”</li>
+</ul></li>
+<li><p>TOC options vary by the type of document you are creating (not avilable for html documents)</p></li>
+<li><p>“toc-expand” specifies the depth of items in the table of contents that should be displayed as expanded in HTML output. Use true to expand all or false to collapse all.</p></li>
+</ul>
+<p>More info can be found at <span class="citation" data-cites="rmarkdown">(<a href="#/code-highlighting" role="doc-biblioref" onclick="">Allaire et al. 2023</a>)</span> and <a href="https://quarto.org/docs/reference/formats/pdf.html" class="uri">https://quarto.org/docs/reference/formats/pdf.html</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Population Pharmacokinetic Analysis of Theophylline In Healthy Volunteers</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> PMx Team</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ref.bib </span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="at">    </span><span class="fu">toc-title</span><span class="kw">:</span><span class="at"> Table of Contents</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="at">    </span><span class="fu">toc_depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="at">    </span><span class="fu">toc_location</span><span class="kw">:</span><span class="at"> right</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="at">    </span><span class="fu">lof</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="at">    </span><span class="fu">lot</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="fu">editor</span><span class="kw">:</span><span class="at"> visual</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="headers" class="slide level2">
+<h2>Headers</h2>
+<ul>
+<li>You can use headers to organize your document.</li>
+<li>If making a pdf document, headers will appear in the TOC</li>
+</ul>
+<div class="cell">
+<style type="text/css">
+code {
+  font-size: 1.7em;
+  /* or try font-size: xx-large; */
+}
+</style>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co">#| eval: true</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># Heading 1  </span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="do">## Heading 2  </span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="do">### Heading 3 </span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="do">#### Heading 4  </span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="do">##### Heading 5  </span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="do">###### Heading 6 </span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/markdown-basics.html" class="uri">https://quarto.org/docs/authoring/markdown-basics.html</a></p>
+</section>
+<section id="code-chunks" class="slide level2">
+<h2>Code Chunks</h2>
+<ul>
+<li><p>The keyboard shortcut to add a new code chunk is option+command+I</p></li>
+<li><p>Quarto documents can have r, python, Julia, Stan, mermaid and more</p></li>
+<li><p>Quarto code chunks use YAML syntax for chunk options. This means that the options are no longer placed in the brackets but below and you use a “#|” to list the options</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#| warning: false</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#| error: false</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#| label: fig-1</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#| fig-cap: A ggplot</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x=</span>bill_depth_mm, <span class="at">y=</span>bill_length_mm, <span class="at">color =</span> species) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>More info can be found <a href="https://quarto.org/docs/reference/cells/cells-knitr.html" class="uri">https://quarto.org/docs/reference/cells/cells-knitr.html</a></p>
+</section>
+<section id="figures-inline" class="slide level2">
+<h2>Figures: Inline</h2>
+<h3 id="inline">Inline</h3>
+<ul>
+<li><p>The “label” option is how the figure is identified when you cross reference it. To cross reference the figure in text type “@ label”</p></li>
+<li><p><a href="#/figures-inline">figure&nbsp;1</a> is my first Figure</p></li>
+<li><p>The “fig-cap” is the figure’s title</p></li>
+<li><p>To display the figure code and output figure side-by-side use the option: “output-location: column-fragment”</p></li>
+</ul>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#| eval: true</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co">#| label: fig-pk</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#| fig-width: 5</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#| fig-cap: this is the caption</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#| output-location: column-fragment</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-9"><a href="#cb14-9"></a></span>
+<span id="cb14-10"><a href="#cb14-10"></a>PK_profile<span class="ot">&lt;-</span><span class="fu">ggplot</span>(Theoph, <span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>conc)) <span class="sc">+</span> </span>
+<span id="cb14-11"><a href="#cb14-11"></a>    <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">"blue"</span>, </span>
+<span id="cb14-12"><a href="#cb14-12"></a>               <span class="at">alpha=</span><span class="fl">0.6</span>)</span>
+<span id="cb14-13"><a href="#cb14-13"></a></span>
+<span id="cb14-14"><a href="#cb14-14"></a>PK_profile</span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column fragment">
+<div class="cell-output-display">
+<div id="fig-pk" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Intro_2_files/figure-revealjs/fig-pk-1.png" width="480"></p>
+<figcaption>Figure&nbsp;1: this is the caption</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/figures.html" class="uri">https://quarto.org/docs/authoring/figures.html</a></p>
+</section>
+<section id="figures-inline-1" class="slide level2">
+<h2>Figures: Inline</h2>
+<h3 id="multiple-figures">Multiple Figures</h3>
+<p><a href="#/figures-inline-1">figure&nbsp;2 (a)</a> and <a href="#/figures-inline-1">figure&nbsp;2 (b)</a> below.</p>
+<div id="fig-PK-Profiles" class="cell quarto-layout-panel">
+<figure>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-PK-Profiles-1" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Intro_2_files/figure-revealjs/fig-PK-Profiles-1.png" data-ref-parent="fig-PK-Profiles" width="960"></p>
+<figcaption>(a) Theophylline Concentration versus Time by Subject</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-PK-Profiles-2" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Intro_2_files/figure-revealjs/fig-PK-Profiles-2.png" data-ref-parent="fig-PK-Profiles" width="960"></p>
+<figcaption>(b) Theophylline Concentration versus Time by Dose</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption>Figure&nbsp;2: Theophylline Concentration versus Time Colored by Subject and Dose</figcaption><p></p>
+</figure>
+</div>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/figures.html" class="uri">https://quarto.org/docs/authoring/figures.html</a></p>
+</section>
+<section id="figures-imported" class="slide level2">
+<h2>Figures: Imported</h2>
+<h3 id="png">PNG</h3>
+<ul>
+<li><p>To insert an image: ! [Add a figure caption] (figurename.png) {add extra formatting settings here}</p></li>
+<li><p>In the {} is where you include a label for cross referencing the figure. The label should be written as #figname</p></li>
+<li><p>You can include more than one argument in the {} section but separate each argument inpute by a space</p></li>
+</ul>
+<p><a href="#/figures-imported">figure&nbsp;3</a> describes the PK of Theophylline by Subject</p>
+<div id="fig-pk-png" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="PKPROFILE.png" style="width:50.0%;height:50.0%"></p>
+<figcaption>Figure&nbsp;3: This is a PK Profile from a .png</figcaption>
+</figure>
+</div>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/figures.html" class="uri">https://quarto.org/docs/authoring/figures.html</a></p>
+</section>
+<section id="figures-imported-1" class="slide level2">
+<h2>Figures: Imported</h2>
+<h3 id="figures-columns">2 Figures (Columns)</h3>
+<ul>
+<li><p>You can customize how imported figures are displayed by using divs</p></li>
+<li><p>divs are marked by at least three consecutive colons :::</p></li>
+<li><p>The structure of a div is :::{some attribute} input :::</p></li>
+<li><p>You must have the same number of colons at the beginning and end of the div</p></li>
+</ul>
+<div id="fig-pkmult" class="quarto-layout-panel">
+<figure>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-M1" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="PKPROFILE.png" data-ref-parent="fig-pkmult"></p>
+<figcaption>(a) This is a PK Profile from a .png 1</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-M2" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="PKPROFILE.png" data-ref-parent="fig-pkmult"></p>
+<figcaption>(b) This is a PK Profile from a .png 2</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption>Figure&nbsp;4: Multiple Figures</figcaption><p></p>
+</figure>
+</div>
+<p><a href="#/figures-imported-1">figure&nbsp;4 (a)</a> and <a href="#/figures-imported-1">figure&nbsp;4 (b)</a> below.</p>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/figures.html" class="uri">https://quarto.org/docs/authoring/figures.html</a></p>
+</section>
+<section id="tables-inline" class="slide level2">
+<h2>Tables: Inline</h2>
+<h3 id="inline-table">Inline Table</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#| label: tbl-PK</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#| tbl-cap: "Summary of Theophylline PK"</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#| tbl-colwidths: [60,40]</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(Theoph))</span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="tbl-PK">
+<table data-quarto-postprocess="true" data-tbl-colwidths="[60,40]">
+<caption>Table&nbsp;1: Summary of Theophylline PK</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Subject</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Wt</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Dose</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Time</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">conc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">79.6</td>
+<td style="text-align: right;">4.02</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.74</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">79.6</td>
+<td style="text-align: right;">4.02</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">2.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">79.6</td>
+<td style="text-align: right;">4.02</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">6.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">79.6</td>
+<td style="text-align: right;">4.02</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">10.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">79.6</td>
+<td style="text-align: right;">4.02</td>
+<td style="text-align: right;">2.02</td>
+<td style="text-align: right;">9.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">79.6</td>
+<td style="text-align: right;">4.02</td>
+<td style="text-align: right;">3.82</td>
+<td style="text-align: right;">8.58</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/tables.html" class="uri">https://quarto.org/docs/authoring/tables.html</a></p>
+</section>
+<section id="tables-external-tables" class="slide level2">
+<h2>Tables: External Tables</h2>
+<h3 id="external-tables">External Tables</h3>
+<h4 id="tex-tables">tex Tables</h4>
+<ul>
+<li>Can’t be used in html revealjs</li>
+</ul>
+<p><code>\begin{table}[!h]</code> <br> <code>\begin{center}</code> <br> <code>\caption{Caption of my table}</code> <br> <code>\footnotesize</code> <br> <code>\label{param-table}</code> <br> <code>\input{tables/pk-param-fixed.tex}</code> <br> <code>\end{center}</code> <br> <code>\end{table}</code></p>
+<p>Alternatively: <code>\input{tables/pk-param-fixed.tex}</code></p>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/tables.html" class="uri">https://quarto.org/docs/authoring/tables.html</a></p>
+</section>
+<section id="tables-external-tables-1" class="slide level2">
+<h2>Tables: External Tables</h2>
+<h3 id="external-tables-1">External Tables</h3>
+<ul>
+<li>You can include an image of a table. But it will be treated as a figure for captions and cross referencing</li>
+</ul>
+<div id="fig-table" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="practice-tables.jpg" style="width:30.0%;height:30.0%"></p>
+<figcaption>Figure&nbsp;5: Caption of my table</figcaption>
+</figure>
+</div>
+<p>More info can be found <a href="https://quarto.org/docs/authoring/tables.html" class="uri">https://quarto.org/docs/authoring/tables.html</a></p>
+</section>
+<section id="format-general-features" class="slide level2">
+<h2>Format: General features</h2>
+<h4 id="inline-code">Inline code</h4>
+<p>use a pair of `` around the text or code</p>
+<h4 id="text-color">Text color</h4>
+<p><code>\textcolor{red}{text color is red}</code> : (not html documents)</p>
+<p><code>&lt;span style="color:red;"&gt;this color is red&lt;/span&gt;</code> : <span style="color:red;">this color is red</span> (html documents)</p>
+<h4 id="subscriptsuperscript">Subscript/Superscript</h4>
+<p><code>superscript^2^ / subscript~2~</code> : superscript<sup>2</sup> / subscript<sub>2</sub></p>
+<h4 id="strikethrough">Strikethrough</h4>
+<p><code>~~strikethrough~~</code> : <del>strikethrough</del></p>
+<h4 id="italic-bold">Italic/ bold</h4>
+<p><code>*italic*</code> : <em>italic</em><br>
+<code>**bold**</code> : <strong>bold</strong><br>
+<code>***bold italics***</code> : <strong><em>bold italics</em></strong></p>
+</section>
+<section id="format-general-features-1" class="slide level2">
+<h2>Format: General features</h2>
+<h3 id="format-continued">Format: Continued</h3>
+<h4 id="bulleted-list">Bulleted list</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1"></a><span class="ss">* </span>A bullet point  </span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="ss">- </span>Also a bullet point  </span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="ss">+ </span>Still a bullet point   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h4 id="sub-levels">Sub-levels</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1"></a><span class="ss">* </span>A bullet point  </span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="ss">  * </span>Sub-level one  </span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="ss">    * </span>Sub-level two   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<h4 id="line-breaks">Line breaks</h4>
+<ul>
+<li>two spaces at the end of the line</li>
+<li>an html break <code>&lt;br&gt;</code></li>
+<li>2 enters/returns (leaving a blank line)</li>
+<li>a text break <code>\vskip0.5cm</code></li>
+</ul>
+<h4 id="horizontal-line">Horizontal line</h4>
+<p>—<br></p>
+</section>
+<section id="code-highlighting" class="slide level2 smaller scrollable">
+<h2>Code highlighting</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co">#| code-summary: "expand for full code"</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="co">#| code-line-numbers: "1"</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>x</span>
+<span id="cb18-7"><a href="#cb18-7"></a>LETTERS[x]</span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>x</span>
+<span id="cb19-3"><a href="#cb19-3"></a>LETTERS[x]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img src="logos.png" class="slide-logo r-stretch"><div class="footer footer-default">
+
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-rmarkdown" class="csl-entry" role="listitem">
+Allaire, JJ, Yihui Xie, Christophe Dervieux, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, et al. 2023. <span>“Rmarkdown: Dynamic Documents for r.”</span> <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="Intro_2_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="Intro_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Intro_2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Intro_2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Intro_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Intro_2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="Intro_2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Intro_2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Intro_2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

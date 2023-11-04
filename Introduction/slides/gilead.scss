@@ -1,0 +1,64 @@
+/*-- scss:defaults --*/
+$body-bg: #FFFFFF;
+$body-color: #1E1E1E;
+$presentation-heading-color: #203662;
+$link-color: #42affa;
+$presentation-font-size-root: 20px; 
+
+/*-- scss:rules --*/ 
+
+
+#title-slide {
+  text-align: left!important;
+
+  .subtitle,
+  .institute,
+  .quarto-title-affiliation,
+  .quarto-title-author-email {
+    font-style: italic;
+    // font-size: 80%;
+    color: #7F7F7F!important;
+  }
+
+  .author, .quarto-title-author-name {
+    color: $body-color!important;
+  }
+
+  .quarto-title-authors {
+    display: flex!important;
+    justify-content: left!important;
+  
+    .quarto-title-author {
+      padding-left: 0em!important;
+      padding-right: 0em!important;
+      width: 100%!important;
+    }
+  }
+  
+}
+
+h2::after {
+  content: "";
+  display: block;
+  margin-top: 0.5em;
+  border-bottom: 1px solid #C4203F;
+}
+
+// section.slide h2::after {
+//   content: ""!important;
+//   position: relative; 
+//   display: block!important; 
+//   padding: 5px!important; 
+//   height: 3px!important; 
+//   color: $body-color!important; 
+//   width: 5em; 
+// }
+
+
+.slide-number, .reveal.has-logo .slide-number {
+  bottom: 10px !important;
+  left: 10px !important;
+  right: unset !important; 
+  top: unset !important;
+  color: $body-color !important;
+}
